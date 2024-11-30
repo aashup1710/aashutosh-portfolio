@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Aashutosh Mishra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!--JAVASCIPRT CODE-->
+    <script>
+        function openPopup() {
+            document.getElementById("cv-popup").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("cv-popup").style.display = "none";
+        }
+    </script>
+    <script>
+        async function handleCVDownload() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            var docLocation = 'http://localhost:3000/public/resume.pdf';
+
+            // Validate form inputs
+            if (!name || !email) {
+                alert("Please fill out both fields.");
+                return;
+            }
+
+            // Send data to the backend
+            fetch("http://localhost:3000/api/save-user", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name, email }),
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        alert("Details saved! Your download will start shortly.");
+                        // Trigger the file download
+
+                        window.open(docLocation, "resizeable,scrollbar");
+
+                        // Close the popup after successful submission
+                        closePopup();
+                    } else {
+                        return response.json().then((data) => {
+                            throw new Error(data.error || "Failed to process the request.");
+                        });
+                    }
+                })
+                .catch((error) => {
+                    alert("Something went wrong: " + error.message);
+                });
+        }
+
+    </script>
+    <!-- Tailwind Animations -->
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 1.2s ease-out;
+        }
+    </style>
+    <style>
+        .shiny-text {
+            background: linear-gradient(to right, #FAF0E6, #eb7704, #FAF0E6);
+            background-clip: text;
+            color: transparent;
+            animation: shine 10ms linear infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                background-position: -200%;
+            }
+
+            100% {
+                background-position: 200%;
+            }
+        }
+    </style>
+    <style>
+        @keyframes bounce-up {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes fade {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .animate-bounce-up {
+            animation: bounce-up 2s infinite;
+        }
+
+        .animate-fade {
+            animation: fade 1.5s infinite;
+        }
+    </style>
+    <!-- Animation CSS -->
+    <style>
+        /* Scroll Animation */
+        .animate-scroll {
+            animation: scroll 30s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Hide scrollbar */
+        .relative {
+            scrollbar-width: none;
+            /* For Firefox */
+            -ms-overflow-style: none;
+            /* For Internet Explorer 10+ */
+        }
+
+        .relative::-webkit-scrollbar {
+            display: none;
+            /* For Chrome, Safari, and Opera */
+        }
+
+        /* Stop scroll animation on hover */
+        .relative:hover .animate-scroll {
+            animation-play-state: paused;
+        }
+    </style>
+
+</head>
+
+<body class="bg-gray-900 text-gray-200 font-sans">
+
+    <!-- First Section: Hero Header -->
+    <!-- Hero Header Section -->
+    <header id="home"
+        class="relative min-h-screen flex flex-col justify-center items-center bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900">
+
+        <!-- Navigation TAB -->
+        <div
+            class="fixed top-0 left-0 w-full bg-gradient-to-r from-blue-900 via-purple-900 to-gray-800 bg-opacity-90 z-50 backdrop-blur-md shadow-lg">
+            <!-- Branding -->
+            <nav class="absolute top-3 left-10 text-white text-sm font-mono tracking-wide">
+                <a href="#home" class="hover:text-teal-300 transition-all duration-300 flex items-center space-x-2">
+                    <span class="text-xl font-bold text-teal-400">AashutoshMishra</span>
+                    <span class="animate-pulse text-teal-300">._</span>
+                </a>
+            </nav>
+
+            <!-- Navigation Links -->
+            <div
+                class="container mx-auto flex justify-center space-x-10 py-4 text-gray-300 text-sm uppercase font-semibold transition-all duration-300">
+                <a href="#home" class="hover:text-teal-300 transition-all duration-300"># Home</a>
+                <a href="#expertise" class="hover:text-teal-300 transition-all duration-300"># Expertise</a>
+                <a href="#work" class="hover:text-teal-300 transition-all duration-300"># Work</a>
+                <a href="#experience" class="hover:text-teal-300 transition-all duration-300"># Experience</a>
+                <a href="#contact" class="hover:text-teal-300 transition-all duration-300"># Contact</a>
+            </div>
+        </div>
+
+        <!-- HOME Content -->
+        <section class="relative h-screen flex items-center justify-center">
+            <!-- Background Animation -->
+            <div
+                class="absolute -z-10 top-0 left-1/2 transform -translate-x-1/2 w-64 h-64 md:w-80 md:h-80 bg-gradient-to-tr from-gray-700 to-gray-900 rounded-lg shadow-lg flex items-center justify-center opacity-20 animate-spin-slow">
+                <span
+                    class="block bg-gradient-to-r from-teal-500 to-orange-400 w-20 h-20 rounded-full animate-bounce opacity-30"></span>
+                <div class="absolute inset-0 transform rotate-12 scale-75 opacity-30">
+                    <div class="w-36 h-36 bg-gray-800 rounded-lg"></div>
+                    <div class="w-28 h-28 bg-orange-500 rounded-lg translate-x-10 -translate-y-10"></div>
+                </div>
+            </div>
+            <!-- Name Content -->
+            <div class="text-center animate-fade-in">
+                <h1 class="text-6xl md:text-8xl font-extrabold text-white tracking-wider mb-4">
+                    Aashutosh Mishra
+                </h1>
+                <p class="text-lg md:text-xl font-light mb-8 shiny-text">
+                    Empowering seamless cloud solutions with a passion for<br>
+                    DevOps, networking, and innovative technologies.
+                </p>
+            </div>
+            </div>
+        </section>
+
+        <!-- Smooth Scroll Indicator -->
+        <a href="#expertise" class="absolute bottom-10 flex flex-col items-center group animate-bounce-up">
+            <div class="w-5 h-10 border-2 border-teal-400 rounded-full flex justify-center items-start animate-pulse">
+                <span class="w-2 h-2 bg-teal-400 rounded-full animate-bounce"></span>
+            </div>
+            <span
+                class="mt-2 text-xs text-gray-400 group-hover:text-teal-400 transition-colors duration-300 animate-fade">
+                Scroll Down
+            </span>
+        </a>
+
+    </header>
+
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="py-16 bg-gray-900 text-gray-200">
+        <div class="container mx-auto px-6">
+            <!-- Section Heading -->
+            <h2 class="text-3xl font-bold text-center mb-12 tracking-wider uppercase text-gray-300">
+                My Expertise
+            </h2>
+
+            <!-- Expertise Table -->
+            <!-- Scrollable Container -->
+            <div class="relative w-full overflow-hidden py-8">
+                <div class="flex space-x-8 min-w-max animate-scroll hover:animate-none">
+                    <!-- Card 1: Full-Stack Development -->
+                    <div
+                        class="w-72 h-72 md:w-96 md:h-96 bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-teal-400 transition duration-500 transform hover:scale-105 hover:shadow-xl relative overflow-hidden">
+                        <div class="absolute inset-0">
+                            <img src="https://plus.unsplash.com/premium_photo-1720287601300-cf423c3d6760?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                alt="Full-Stack Development Background"
+                                class="w-full h-full object-cover opacity-20 hover:opacity-30 transition-opacity duration-500">
+                        </div>
+                        <div class="relative z-10 p-8 flex flex-col justify-between h-full">
+                            <div class="flex items-center space-x-4">
+                                <div class="text-pink-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9.75 6.75v10.5M14.25 6.75v10.5m1.5-13.5H8.25C7.42 3.75 6.75 4.42 6.75 5.25v13.5c0 .828.67 1.5 1.5 1.5h7.5c.828 0 1.5-.672 1.5-1.5V5.25c0-.828-.672-1.5-1.5-1.5z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-semibold text-pink-400">Full-Stack Development</h3>
+                            </div>
+                            <p class="text-gray-300 mt-4">
+                                Building scalable web apps using React, Next.js, and Node.js. Expertise in backend
+                                solutions and API
+                                integration.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Networking -->
+                    <div
+                        class="w-72 h-72 md:w-96 md:h-96 bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-teal-400 transition duration-500 transform hover:scale-105 hover:shadow-xl relative overflow-hidden">
+                        <div class="absolute inset-0">
+                            <img src="https://media.geeksforgeeks.org/wp-content/uploads/20230406152358/CN-(1).jpg"
+                                alt="Networking Background"
+                                class="w-full h-full object-cover opacity-20 hover:opacity-30 transition-opacity duration-500">
+                        </div>
+                        <div class="relative z-10 p-8 flex flex-col justify-between h-full">
+                            <div class="flex items-center space-x-4">
+                                <div class="text-teal-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9 17v5c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-5m-5 0v-2a3 3 0 013-3h2a3 3 0 013 3v2m-5 0H9m-2.268-.794A2 2 0 013.5 15.5v-3.74a3.474 3.474 0 01.999-6.89 3.5 3.5 0 014.268 1.794A3.474 3.474 0 0114.5 5a3.5 3.5 0 013.501 3.5v3.74a2 2 0 01-1.732 1.936" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-semibold text-teal-400">Networking</h3>
+                            </div>
+                            <p class="text-gray-300 mt-4">
+                                Expertise in networking fundamentals, configuration, and troubleshooting, ensuring
+                                secure and
+                                efficient communication between systems.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Cloud Computing -->
+                    <div
+                        class="w-72 h-72 md:w-96 md:h-96 bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-teal-400 transition duration-500 transform hover:scale-105 hover:shadow-xl relative overflow-hidden">
+                        <div class="absolute inset-0">
+                            <img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*neG4D9C8UcJvNn6bverfIA.png"
+                                alt="Cloud Computing Background"
+                                class="w-full h-full object-cover opacity-20 hover:opacity-30 transition-opacity duration-500">
+                        </div>
+                        <div class="relative z-10 p-8 flex flex-col justify-between h-full">
+                            <div class="flex items-center space-x-4">
+                                <div class="text-blue-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M3 15a4 4 0 01.6-2 4 4 0 015.2-1.6 4.5 4.5 0 118.6-2.5A5 5 0 0121 13a5 5 0 01-5 5H7a4 4 0 01-4-4z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-semibold text-blue-400">Cloud Computing</h3>
+                            </div>
+                            <p class="text-gray-300 mt-4">
+                                Specialized in cloud solutions such as AWS and Azure, providing scalable, secure, and
+                                high-performance infrastructure.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: DevOps Engineering -->
+                    <div
+                        class="w-72 h-72 md:w-96 md:h-96 bg-gray-800 rounded-lg shadow-lg border border-gray-700 hover:border-teal-400 transition duration-500 transform hover:scale-105 hover:shadow-xl relative overflow-hidden">
+                        <div class="absolute inset-0">
+                            <img src="https://www.flexjobs.com/blog/wp-content/uploads/2020/05/07184138/DevOps.png?w=1024"
+                                alt="DevOps Engineering Background"
+                                class="w-full h-full object-cover opacity-20 hover:opacity-30 transition-opacity duration-500">
+                        </div>
+                        <div class="relative z-10 p-8 flex flex-col justify-between h-full">
+                            <div class="flex items-center space-x-4">
+                                <div class="text-orange-400">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M3 10h2l2 10h10l2-10h2m-5-5a2 2 0 11-4 0m-2 5a6 6 0 0112 0v1H5v-1z" />
+                                    </svg>
+                                </div>
+                                <h3 class="text-2xl font-semibold text-orange-400">DevOps Engineering</h3>
+                            </div>
+                            <p class="text-gray-300 mt-4">
+                                Bridging the gap between development and operations to automate workflows, improve
+                                collaboration, and
+                                increase deployment efficiency.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Projects Section -->
+    <section id="work" class="bg-gray-900 py-20 px-6">
+        <div class="max-w-screen-xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-semibold text-pink-400 mb-12">
+                My Projects
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Project 1 -->
+                <div
+                    class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:border-teal-400 transition duration-500 transform hover:scale-105 hover:shadow-xl">
+                    <div class="flex flex-col items-center mb-4">
+                        <div class="text-pink-400 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9.75 6.75v10.5M14.25 6.75v10.5m1.5-13.5H8.25C7.42 3.75 6.75 4.42 6.75 5.25v13.5c0 .828.67 1.5 1.5 1.5h7.5c.828 0 1.5-.672 1.5-1.5V5.25c0-.828-.672-1.5-1.5-1.5z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-pink-400 text-center">
+                            SCS System
+                        </h3>
+                    </div>
+                    <p class="text-gray-300 text-justify">
+                        A software system designed to reduce high-quality data generated using cameras, featuring motion
+                        detection, subject identification, and behavior classification.
+                    </p>
+                    <div class="text-teal-400 mt-4">
+                        <strong>Technologies Used:</strong> Python, OpenCV, HTML, Bootstrap, React, AWS Cloud
+                    </div>
+                    <div class="mt-6">
+                        <a href="#"
+                            class="bg-teal-500 text-white px-4 py-2 rounded-md hover:bg-teal-600 transition-colors duration-300 inline-block">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div
+                    class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:border-teal-400 transition duration-500 transform hover:scale-105 hover:shadow-xl">
+                    <div class="flex flex-col items-center mb-4">
+                        <div class="text-teal-400 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 17v5c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-5m-5 0v-2a3 3 0 013-3h2a3 3 0 013 3v2m-5 0H9m-2.268-.794A2 2 0 013.5 15.5v-3.74a3.474 3.474 0 01.999-6.89 3.5 3.5 0 014.268 1.794A3.474 3.474 0 0114.5 5a3.5 3.5 0 013.501 3.5v3.74a2 2 0 01-1.732 1.936" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-teal-400 text-center">
+                            Packet Sniffer
+                        </h3>
+                    </div>
+                    <p class="text-gray-300 text-justify">
+                        A packet capture tool designed to intercept, decode, and filter network data packets for
+                        analysis, aiding troubleshooting and security investigations.
+                    </p>
+                    <div class="text-teal-400 mt-4">
+                        <strong>Technologies Used:</strong> Python, Linux
+                    </div>
+                    <div class="mt-6">
+                        <a href="#"
+                            class="bg-teal-500 text-white px-4 py-2 rounded-md hover:bg-teal-600 transition-colors duration-300 inline-block">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Placeholder for additional projects -->
+                <div
+                    class="bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:border-teal-400 transition duration-500 transform hover:scale-105 hover:shadow-xl">
+                    <div class="flex flex-col items-center mb-4">
+                        <div class="text-orange-400 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M16.5 9A3.5 3.5 0 1012 5.5M3 13.5A3.5 3.5 0 116.5 17H17.5a3.5 3.5 0 010-7H7a3.5 3.5 0 00-4 4z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-semibold text-orange-400 text-center">
+                            Placeholder Project
+                        </h3>
+                    </div>
+                    <p class="text-gray-300 text-justify">
+                        A description for a new project. Replace this text with actual project information.
+                    </p>
+                    <div class="text-teal-400 mt-4">
+                        <strong>Technologies Used:</strong> Add your tech stack here
+                    </div>
+                    <div class="mt-6">
+                        <a href="#"
+                            class="bg-teal-500 text-white px-4 py-2 rounded-md hover:bg-teal-600 transition-colors duration-300 inline-block">
+                            View Project
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Professional Experience Section -->
+    <section id="experience" class="py-16 bg-gray-900 text-gray-200">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 animate-fade-in-up">
+                Professional Experience
+            </h2>
+            <div class="space-y-6">
+                <!-- Job 1 -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg transform transition-transform hover:scale-105">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-semibold">
+                            Trainee @ Centilytics
+                        </h3>
+                        <span class="text-teal-400">2023 - 2024</span>
+                    </div>
+                    <p class="text-gray-400 mt-3">
+                        Provided IT support, resolved issues efficiently, and optimized cloud services for smooth
+                        performance. Managed Barracuda Firewalls to ensure network security. Collaborated with clients
+                        on cloud and networking setups, troubleshooting effectively. Documented solutions to streamline
+                        processes and enhance future troubleshooting efforts, ensuring reliable and secure systems.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="px-3 py-1 bg-teal-600 text-sm rounded-full">AWS CLoud</span>
+                        <span class="px-3 py-1 bg-teal-600 text-sm rounded-full">Networking</span>
+                        <span class="px-3 py-1 bg-purple-600 text-sm rounded-full">
+                            Helpdesk
+                        </span>
+                        <span class="px-3 py-1 bg-purple-600 text-sm rounded-full">
+                            Engineering Documentation
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Freelance Opportunities Section -->
+    <section id="contact" class="py-16 bg-gray-800 text-gray-200">
+        <div class="container mx-auto grid md:grid-cols-2 gap-12">
+            <!-- Contact Info -->
+            <div class="space-y-6">
+                <h2 class="text-3xl font-bold">
+                    You can connect me through
+                </h2>
+                <p>
+
+                    Need assistance with a challenging cloud, networking, or development project? Reach out to me via
+                    email or connect with me on any of the platforms below. Let’s collaborate to create innovative and
+                    efficient solutions!
+                </p>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="mailto:ingenious.am.17@gmail.com" class="text-teal-400 hover:underline">Email</a>
+                    </li>
+                    <li><a href="https://www.linkedin.com/in/aashutosh-mishra-115b23209/"
+                            class="text-teal-400 hover:underline">LinkedIn</a></li>
+                    <li><a href="status:404" class="text-teal-400 hover:underline">Instagram</a></li>
+                    <li><a href="https://github.com/aashup1710" class="text-teal-400 hover:underline">GitHub</a></li>
+                </ul>
+                <!-- CV Download Button -->
+                <button onclick="openPopup()" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                    Download CV
+                </button>
+            </div>
+
+
+            <!-- Form Modal -->
+            <div id="cv-popup" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <form id="cvForm"
+                    class="bg-gradient-to-r from-yellow-300 via-yellow-200 to-yellow-300 p-6 rounded-lg shadow-lg max-w-md">
+                    <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">Download My CV</h2>
+                    <label class="block mb-4">
+                        <span class="text-gray-700 font-medium">Name:</span>
+                        <input type="text" id="name" name="name" required
+                            class="border border-gray-300 w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+                    </label>
+                    <label class="block mb-4">
+                        <span class="text-gray-700 font-medium">Email:</span>
+                        <input type="email" id="email" name="email" required
+                            class="border border-gray-300 w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+                    </label>
+                    <button type="submit" onclick="handleCVDownload(event)"
+                        class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition font-semibold">
+                        Submit & Download
+                    </button>
+                    <span class="block mb-4"></span>
+                    <button type="submit"
+                        class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition font-semibold">
+                        <a href="../backend/public/resume.pdf">Skip & Download</a>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="py-6 bg-gray-800">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Aashutosh Mishra. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+</body>
+
+
+</html>
